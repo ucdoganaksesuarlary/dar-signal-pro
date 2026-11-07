@@ -3,323 +3,300 @@
 <html lang="tk">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width,initial-scale=1">
 <title>RADAR SIGNAL PRO</title>
 <style>
 *{box-sizing:border-box}
 body{
- margin:0;background:#081225;color:white;
- font-family:Arial,sans-serif;padding:20px 14px;
+ margin:0;padding:16px;
+ background:#081225;color:#fff;
+ font-family:Arial,sans-serif
 }
-header{text-align:center;padding:28px 0 35px}
-.logo{font-size:35px;font-weight:bold;color:#22d477}
-.logo span{color:#ffc34d}
-.sub{color:#9baac0;margin-top:12px}
+header{text-align:center;padding:26px 0}
+h1{font-size:27px;color:#22d47c;margin:0}
+h1 span{color:#ffc44d}
+.sub{color:#a6b5c9;margin-top:12px}
 .card{
- background:#192a40;border-radius:24px;
- padding:22px;margin-bottom:20px;
- box-shadow:0 8px 25px #0003;
+ background:#192a40;border-radius:22px;
+ padding:20px;margin:16px 0
 }
-h2{font-size:22px;margin:5px 0 22px}
-label{display:block;color:#aab9ce;margin:18px 0 9px}
-select,button{
- width:100%;padding:18px;border:0;border-radius:15px;
- font-size:17px;
+h2{font-size:21px;margin:4px 0 20px}
+label{display:block;color:#b5c3d5;margin:15px 0 9px}
+input,select{
+ width:100%;padding:15px;border:0;
+ border-radius:12px;background:#293c59;
+ color:white;font-size:16px
 }
-select{background:#293d5b;color:white}
-button{
- margin-top:22px;background:#16bd70;color:white;
- font-weight:bold;cursor:pointer;
+.tabs{display:flex;gap:8px;margin:15px 0}
+.tabs button{
+ flex:1;padding:12px 5px;border:0;
+ border-radius:12px;background:#293c59;
+ color:white;font-size:14px
 }
-button:disabled{opacity:.5}
+.tabs button.active{background:#127eae}
+.pairbox{
+ max-height:245px;overflow-y:auto;
+ border-radius:12px;background:#233650;
+ margin-top:10px
+}
+.pair{
+ display:flex;align-items:center;
+ padding:13px 10px;gap:8px;
+ border-bottom:1px solid #394c64;
+ cursor:pointer;font-size:14px
+}
+.pair.selected{background:#315a78}
+.pair .name{flex:1}
+.star{color:#ffbf43;font-size:21px}
+.small{font-size:12px;color:#aab9cc}
+.mainbtn{
+ width:100%;padding:17px;border:0;
+ border-radius:13px;background:#18bf72;
+ color:white;font-size:19px;
+ font-weight:bold;margin-top:18px
+}
 .result{
- background:#263852;border-radius:20px;
- padding:30px 10px;text-align:center;
- font-size:39px;font-weight:bold;color:#ffc34d;
+ padding:25px 8px;text-align:center;
+ background:#293c59;border-radius:16px;
+ font-size:37px;font-weight:bold;
+ color:#ffbd45
 }
-.status{color:#aab9ce;line-height:1.7;margin-top:18px}
+.green{color:#27e78b}
+.red{color:#ff6262}
+.yellow{color:#ffc34d}
+.status{color:#afbed1;line-height:1.6;margin-top:16px}
 .grid{
- display:grid;grid-template-columns:1fr 1fr;gap:12px;
- margin-top:20px
+ display:grid;grid-template-columns:1fr 1fr;
+ gap:12px;margin-top:18px
 }
-.stat{background:#293d5b;padding:17px;border-radius:17px}
-.stat small{color:#afbed2;font-size:15px}
-.stat div{font-size:23px;font-weight:bold;margin-top:10px}
-.chart{
- background:#101d30;border-radius:17px;padding:10px;
- overflow:hidden
+.stat{
+ background:#293c59;border-radius:14px;
+ padding:16px;min-height:92px
 }
-canvas{width:100%;height:220px;display:block}
-.green{color:#25e58b!important}
-.red{color:#ff6666!important}
-.yellow{color:#ffc34d!important}
-.footer{text-align:center;color:#71829a;font-size:12px;padding:20px}
+.stat small{color:#b5c3d5}
+.stat strong{display:block;font-size:20px;margin-top:12px}
+.selectedbar{
+ color:#25e58b;font-weight:bold;
+ margin-top:15px;font-size:17px
+}
+footer{text-align:center;color:#8191a6;font-size:12px;padding:20px}
 </style>
 </head>
 <body>
 
 <header>
- <div class="logo">⚡ RADAR <span>SIGNAL PRO</span></div>
- <div class="sub">Akylly bazar seljermesi</div>
+<h1>⚡ RADAR <span>SIGNAL PRO</span></h1>
+<div class="sub">Forex • OTC • Bazar seljermesi</div>
 </header>
 
 <section class="card">
- <h2>📊 Söwda jübütini saýla</h2>
- <label>Walýuta / Kripto</label>
- <select id="pair">
-  <option value="BTCUSDT">BTC / USDT</option>
-  <option value="ETHUSDT">ETH / USDT</option>
-  <option value="BNBUSDT">BNB / USDT</option>
-  <option value="SOLUSDT">SOL / USDT</option>
-  <option value="XRPUSDT">XRP / USDT</option>
-  <option value="DOGEUSDT">DOGE / USDT</option>
-  <option value="ADAUSDT">ADA / USDT</option>
- </select>
+<h2>📊 Söwda jübütini saýla</h2>
 
- <label>⏱ Wagt</label>
- <select id="interval">
-  <option value="1m">M1 - 1 minut</option>
-  <option value="5m">M5 - 5 minut</option>
-  <option value="15m">M15 - 15 minut</option>
-  <option value="1h">H1 - 1 sagat</option>
-  <option value="4h">H4 - 4 sagat</option>
- </select>
-
- <button id="analyze" onclick="analyze()">🔄 ANALIZ ET</button>
- <div id="message" class="status">Analiz üçin taýýar. Düwmä bas.</div>
-</section>
-
-<section class="card">
- <h2>⚡ RADAR SIGNAL</h2>
- <div class="result" id="signal">GARAŞ</div>
- <div class="status" id="description">
-  Bazar maglumatlaryna garaşylýar.
- </div>
- <div class="grid">
-  <div class="stat">
-   <small>RSI</small>
-   <div id="rsi">--</div>
-  </div>
-  <div class="stat">
-   <small>MACD</small>
-   <div id="macd">--</div>
-  </div>
-  <div class="stat">
-   <small>Bollinger</small>
-   <div id="boll">--</div>
-  </div>
-  <div class="stat">
-   <small>Görkezijiler</small>
-   <div id="strength">--</div>
-  </div>
- </div>
-</section>
-
-<section class="card">
- <h2>📈 Bazar grafigi</h2>
- <div class="chart">
-  <canvas id="chart"></canvas>
- </div>
- <div class="status" id="price">Bahasy: --</div>
- <div class="status" id="updated">Täzelenme: --</div>
-</section>
-
-<div class="footer">
- RADAR SIGNAL PRO © 2026<br>
- Analiz maglumatdyr, girdeji kepilligi däldir.
+<div class="tabs">
+<button class="active" onclick="tab('all',this)">Ählisi</button>
+<button onclick="tab('forex',this)">Forex</button>
+<button onclick="tab('otc',this)">OTC</button>
+<button onclick="tab('fav',this)">⭐</button>
 </div>
 
+<input id="search" placeholder="🔍 Jübüt gözle..."
+ oninput="renderPairs()">
+
+<div class="pairbox" id="pairs"></div>
+
+<div class="selectedbar" id="chosen">Saýlanan: EUR/USD</div>
+
+<label>⏱ Söwda wagty</label>
+<select id="duration">
+<option value="5">5 sekunt</option>
+<option value="15">15 sekunt</option>
+<option value="30">30 sekunt</option>
+<option value="60" selected>1 minut</option>
+<option value="120">2 minut</option>
+<option value="300">5 minut</option>
+</select>
+
+<button class="mainbtn" onclick="analyze()">⚡ ANALIZ ET</button>
+</section>
+
+<section class="card">
+<h2>⚡ RADAR SIGNAL</h2>
+<div class="result yellow" id="signal">🟡 GARAŞ</div>
+<div class="status" id="description">
+Jübüt saýlap analiz düwmesine bas.
+</div>
+
+<div class="grid">
+<div class="stat">
+<small>RSI</small>
+<strong id="rsi">--</strong>
+</div>
+<div class="stat">
+<small>MACD</small>
+<strong id="macd">--</strong>
+</div>
+<div class="stat">
+<small>Bollinger</small>
+<strong id="boll">--</strong>
+</div>
+<div class="stat">
+<small>Maglumat ýagdaýy</small>
+<strong id="state">Garaşylýar</strong>
+</div>
+</div>
+</section>
+
+<section class="card">
+<h2>📈 Bazar maglumatlary</h2>
+<div class="status" id="market">
+Hakyky baha çeşmesi birikdirilmedik.
+</div>
+<div class="status" id="time"></div>
+</section>
+
+<footer>
+RADAR SIGNAL PRO © 2026<br>
+Signal girdejini kepillendirmeýär.
+</footer>
+
 <script>
-const $ = id => document.getElementById(id);
-let candles = [];
+const forex=[
+"CAD/CHF","CAD/JPY","CHF/JPY",
+"EUR/CHF","EUR/USD","USD/CAD",
+"USD/CHF","USD/JPY","EUR/AUD",
+"GBP/USD","EUR/GBP","AUD/USD",
+"AUD/JPY","AUD/CAD","AUD/CHF",
+"EUR/CAD","EUR/JPY","GBP/JPY",
+"NZD/USD","USD/CNH","USD/TRY"
+];
 
-async function getMarketData(){
- const pair = $("pair").value;
- const interval = $("interval").value;
+const otc=[
+"AUD/CAD OTC","AUD/CHF OTC",
+"AUD/USD OTC","BHD/CNY OTC",
+"CHF/JPY OTC","EUR/HUF OTC",
+"EUR/TRY OTC","EUR/USD OTC",
+"LBP/USD OTC","NGN/USD OTC",
+"QAR/CNY OTC","SAR/CNY OTC",
+"UAH/USD OTC","USD/BRL OTC",
+"USD/CHF OTC","USD/MYR OTC",
+"USD/PKR OTC","USD/VND OTC",
+"ZAR/USD OTC","CAD/CHF OTC",
+"AUD/JPY OTC","USD/RUB OTC",
+"KES/USD OTC","USD/BDT OTC",
+"USD/COP OTC","EUR/RUB OTC",
+"USD/IDR OTC","USD/ARS OTC",
+"USD/THB OTC","USD/EGP OTC",
+"USD/JPY OTC","USD/SGD OTC",
+"USD/INR OTC","CAD/JPY OTC",
+"USD/MXN OTC","YER/USD OTC",
+"EUR/CHF OTC","USD/CNH OTC",
+"EUR/JPY OTC","OMR/CNY OTC",
+"MAD/USD OTC","USD/DZD OTC",
+"AED/CNY OTC","CHF/NOK OTC",
+"TND/USD OTC","USD/CLP OTC",
+"USD/CAD OTC"
+];
 
- const urls = [
-  `https://api.binance.com/api/v3/klines?symbol=${pair}&interval=${interval}&limit=100`,
-  `https://data-api.binance.vision/api/v3/klines?symbol=${pair}&interval=${interval}&limit=100`
- ];
+const all=[
+...forex.map(name=>({name,type:"forex"})),
+...otc.map(name=>({name,type:"otc"}))
+];
 
- let lastError;
+let currentTab="all";
+let selected="EUR/USD";
+let favorites=new Set();
 
- for(const url of urls){
-  try{
-   const response = await fetch(url);
-   if(!response.ok) throw new Error("API error: "+response.status);
-   const data = await response.json();
-   if(!Array.isArray(data) || data.length < 30)
-    throw new Error("Maglumat ýeterlik däl");
-   return data.map(c=>({
-    time:c[0],
-    open:+c[1],
-    high:+c[2],
-    low:+c[3],
-    close:+c[4],
-    volume:+c[5]
-   }));
-  }catch(e){lastError=e}
- }
- throw lastError || new Error("Maglumat alyp bolmady");
+function tab(type,button){
+ currentTab=type;
+ document.querySelectorAll(".tabs button")
+ .forEach(b=>b.classList.remove("active"));
+ button.classList.add("active");
+ renderPairs();
 }
 
-function ema(values,period){
- let result=[];
- let multiplier=2/(period+1);
- let current=values[0];
- result.push(current);
- for(let i=1;i<values.length;i++){
-  current=(values[i]-current)*multiplier+current;
-  result.push(current);
- }
- return result;
-}
+function renderPairs(){
+ const query=document.getElementById("search")
+ .value.toUpperCase().trim();
+ const box=document.getElementById("pairs");
+ box.innerHTML="";
 
-function calculateRSI(values,period=14){
- let gains=0,losses=0;
- for(let i=values.length-period;i<values.length;i++){
-  const diff=values[i]-values[i-1];
-  if(diff>0)gains+=diff;
-  else losses-=diff;
- }
- let avgGain=gains/period;
- let avgLoss=losses/period;
- if(avgLoss===0)return 100;
- return 100-(100/(1+avgGain/avgLoss));
-}
-
-function drawChart(){
- const canvas=$("chart");
- const rect=canvas.getBoundingClientRect();
- const dpr=window.devicePixelRatio||1;
- canvas.width=rect.width*dpr;
- canvas.height=220*dpr;
- const ctx=canvas.getContext("2d");
- ctx.scale(dpr,dpr);
-
- const closes=candles.map(c=>c.close);
- const min=Math.min(...closes);
- const max=Math.max(...closes);
- const range=max-min||1;
- const w=rect.width,h=220;
- const pad=12;
-
- ctx.strokeStyle="#293d5b";
- ctx.lineWidth=1;
- for(let i=1;i<4;i++){
-  ctx.beginPath();
-  ctx.moveTo(0,h*i/4);
-  ctx.lineTo(w,h*i/4);
-  ctx.stroke();
- }
-
- ctx.beginPath();
- closes.forEach((v,i)=>{
-  const x=pad+i*(w-2*pad)/(closes.length-1);
-  const y=h-pad-(v-min)/range*(h-2*pad);
-  if(i===0)ctx.moveTo(x,y);
-  else ctx.lineTo(x,y);
+ const filtered=all.filter(p=>{
+  if(currentTab==="forex"&&p.type!=="forex")return false;
+  if(currentTab==="otc"&&p.type!=="otc")return false;
+  if(currentTab==="fav"&&!favorites.has(p.name))return false;
+  return p.name.includes(query);
  });
- ctx.strokeStyle="#28df8b";
- ctx.lineWidth=2.5;
- ctx.stroke();
 
- const last=closes[closes.length-1];
- ctx.fillStyle="#ffc34d";
- ctx.font="12px Arial";
- ctx.fillText(last.toFixed(2),w-75,18);
+ if(!filtered.length){
+  box.textContent="Jübüt tapylmady";
+  return;
+ }
+
+ filtered.forEach(p=>{
+  const row=document.createElement("div");
+  row.className="pair"+(p.name===selected?" selected":"");
+
+  const star=document.createElement("span");
+  star.className="star";
+  star.textContent=favorites.has(p.name)?"★":"☆";
+  star.onclick=e=>{
+   e.stopPropagation();
+   if(favorites.has(p.name))favorites.delete(p.name);
+   else favorites.add(p.name);
+   renderPairs();
+  };
+
+  const name=document.createElement("span");
+  name.className="name";
+  name.textContent=p.name;
+
+  const kind=document.createElement("span");
+  kind.className="small";
+  kind.textContent=p.type.toUpperCase();
+
+  row.append(star,name,kind);
+  row.onclick=()=>{
+   selected=p.name;
+   document.getElementById("chosen").textContent=
+    "Saýlanan: "+selected;
+   document.getElementById("search").value="";
+   document.getElementById("signal").textContent="🟡 GARAŞ";
+   document.getElementById("signal").className="result yellow";
+   document.getElementById("description").textContent=
+    "Täze jübüt saýlandy. Analiz üçin bas.";
+   renderPairs();
+  };
+  box.appendChild(row);
+ });
 }
 
-function calculateSignal(){
- const closes=candles.map(c=>c.close);
- const last=closes[closes.length-1];
- const rsi=calculateRSI(closes);
- const fast=ema(closes,12);
- const slow=ema(closes,26);
- const macd=fast.map((v,i)=>v-slow[i]);
- const signalLine=ema(macd,9);
- const currentMacd=macd.at(-1);
- const currentSignal=signalLine.at(-1);
+function analyze(){
+ const duration=document.getElementById("duration").value;
+ const isOTC=selected.endsWith("OTC");
 
- const recent=closes.slice(-20);
- const mean=recent.reduce((a,b)=>a+b,0)/20;
- const variance=recent.reduce((a,b)=>a+(b-mean)**2,0)/20;
- const deviation=Math.sqrt(variance);
- const upper=mean+2*deviation;
- const lower=mean-2*deviation;
+ document.getElementById("signal").textContent="🟡 GARAŞ";
+ document.getElementById("signal").className="result yellow";
+ document.getElementById("rsi").textContent="--";
+ document.getElementById("macd").textContent="--";
+ document.getElementById("boll").textContent="--";
+ document.getElementById("state").textContent="Birikmedik";
 
- let score=0;
- let reasons=[];
+ document.getElementById("description").textContent=
+  selected+" üçin "+duration+
+  " sekuntlyk söwda saýlandy. Hakyky baha maglumatlary ýok. "+
+  "AL/SAT signalyny ygtybarly hasaplamak mümkin däl.";
 
- if(rsi<30){score++;reasons.push("RSI pes");}
- else if(rsi>70){score--;reasons.push("RSI ýokary");}
+ document.getElementById("market").textContent=isOTC?
+  "OTC bahalary Pocket Option çeşmesinden alynmaly. "+
+  "Häzir OTC maglumat birikmesi ýok.":
+  "Forex baha çeşmesi entek birikdirilmedi. "+
+  "Hakyky maglumat gelýänçä signal berilmeýär.";
 
- if(currentMacd>currentSignal){
-  score++;reasons.push("MACD ýokary ugurda");
- }else{
-  score--;reasons.push("MACD aşak ugurda");
- }
-
- if(last>mean){
-  score++;reasons.push("Baha orta çyzykdan ýokarda");
- }else{
-  score--;reasons.push("Baha orta çyzykdan aşakda");
- }
-
- if(last<lower){
-  score++;reasons.push("Baha Bollinger aşaky çäginde");
- }else if(last>upper){
-  score--;reasons.push("Baha Bollinger ýokarky çäginde");
- }
-
- let name="GARAŞ",color="yellow";
- if(score>=2){name="🟢 AL";color="green";}
- else if(score<=-2){name="🔴 SAT";color="red";}
-
- $("signal").textContent=name;
- $("signal").className="result "+color;
- $("description").textContent=reasons.join(" • ");
-
- $("rsi").textContent=rsi.toFixed(2);
- $("macd").textContent=currentMacd.toFixed(6);
- $("boll").textContent=
-  last>upper?"Ýokary":
-  last<lower?"Aşak":"Kadaly";
- $("strength").textContent=Math.abs(score)+"/4";
-
- $("price").textContent="Bahasy: "+last.toFixed(4)+" USDT";
- $("updated").textContent="Täzelenme: "+new Date().toLocaleTimeString();
+ document.getElementById("time").textContent=
+  "Barlanan wagt: "+new Date().toLocaleTimeString();
 }
 
-async function analyze(){
- const btn=$("analyze");
- btn.disabled=true;
- $("message").textContent="⏳ Bazar maglumatlary alynýar...";
- $("signal").textContent="...";
- $("signal").className="result yellow";
-
- try{
-  candles=await getMarketData();
-  calculateSignal();
-  drawChart();
-  $("message").textContent="✅ Analiz üstünlikli tamamlandy.";
- }catch(error){
-  $("signal").textContent="ÝALŇYŞ";
-  $("signal").className="result red";
-  $("description").textContent=
-   "Maglumat alyp bolmady: "+error.message+
-   ". Interneti ýa-da API elýeterliligini barlaň.";
-  $("message").textContent="Maglumat birikmesi şowsuz.";
- }finally{
-  btn.disabled=false;
- }
-}
-
-$("pair").addEventListener("change",analyze);
-$("interval").addEventListener("change",analyze);
-
-analyze();
+renderPairs();
 </script>
 </body>
 </html>
