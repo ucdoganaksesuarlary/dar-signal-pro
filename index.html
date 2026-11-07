@@ -3,246 +3,321 @@
 <html lang="tk">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>RADAR SIGNAL PRO</title>
 <style>
 *{box-sizing:border-box}
-body{margin:0;padding:18px;background:#081225;color:white;font-family:Arial}
-header{text-align:center;padding:20px 0}
-h1{color:#22d36e;font-size:29px}
-.sub,.info{color:#9ba9c1;line-height:1.7}
-.card{background:#18263d;padding:20px;border-radius:18px;margin:18px 0}
-label{display:block;margin:15px 0 8px;color:#bdc8d9}
-select,button{width:100%;padding:16px;border:0;border-radius:12px;font-size:17px}
-select{background:#293b56;color:white}
-button{background:#1dbb65;color:white;font-weight:bold;margin-top:15px}
-.signal{text-align:center;font-size:36px;font-weight:bold;padding:25px;border-radius:14px;background:#26354d}
-.buy{color:#21df79}.sell{color:#ff5151}.wait{color:#ffc34d}
-.stats{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-.stat{background:#263750;padding:15px;border-radius:12px}
-.stat strong{display:block;font-size:21px;margin-top:8px}
-canvas{width:100%;height:210px;background:#101c30;border-radius:12px}
-.small{font-size:12px;color:#8999b1}
-footer{text-align:center;color:#8190a8;padding:20px}
+body{
+ margin:0;background:#081225;color:white;
+ font-family:Arial,sans-serif;padding:20px 14px;
+}
+header{text-align:center;padding:28px 0 35px}
+.logo{font-size:35px;font-weight:bold;color:#22d477}
+.logo span{color:#ffc34d}
+.sub{color:#9baac0;margin-top:12px}
+.card{
+ background:#192a40;border-radius:24px;
+ padding:22px;margin-bottom:20px;
+ box-shadow:0 8px 25px #0003;
+}
+h2{font-size:22px;margin:5px 0 22px}
+label{display:block;color:#aab9ce;margin:18px 0 9px}
+select,button{
+ width:100%;padding:18px;border:0;border-radius:15px;
+ font-size:17px;
+}
+select{background:#293d5b;color:white}
+button{
+ margin-top:22px;background:#16bd70;color:white;
+ font-weight:bold;cursor:pointer;
+}
+button:disabled{opacity:.5}
+.result{
+ background:#263852;border-radius:20px;
+ padding:30px 10px;text-align:center;
+ font-size:39px;font-weight:bold;color:#ffc34d;
+}
+.status{color:#aab9ce;line-height:1.7;margin-top:18px}
+.grid{
+ display:grid;grid-template-columns:1fr 1fr;gap:12px;
+ margin-top:20px
+}
+.stat{background:#293d5b;padding:17px;border-radius:17px}
+.stat small{color:#afbed2;font-size:15px}
+.stat div{font-size:23px;font-weight:bold;margin-top:10px}
+.chart{
+ background:#101d30;border-radius:17px;padding:10px;
+ overflow:hidden
+}
+canvas{width:100%;height:220px;display:block}
+.green{color:#25e58b!important}
+.red{color:#ff6666!important}
+.yellow{color:#ffc34d!important}
+.footer{text-align:center;color:#71829a;font-size:12px;padding:20px}
 </style>
 </head>
 <body>
+
 <header>
-<h1>⚡ RADAR SIGNAL PRO</h1>
-<div class="sub">Akylly bazar seljermesi</div>
+ <div class="logo">⚡ RADAR <span>SIGNAL PRO</span></div>
+ <div class="sub">Akylly bazar seljermesi</div>
 </header>
 
-<div class="card">
-<h3>📊 Söwda jübütini saýla</h3>
-<select id="pair">
-<option value="BTCUSDT">BTC / USDT</option>
-<option value="ETHUSDT">ETH / USDT</option>
-<option value="BNBUSDT">BNB / USDT</option>
-<option value="SOLUSDT">SOL / USDT</option>
-<option value="XRPUSDT">XRP / USDT</option>
-</select>
-<label>⏱ Wagt</label>
-<select id="time">
-<option value="1m">M1 - 1 minut</option>
-<option value="5m">M5 - 5 minut</option>
-<option value="15m">M15 - 15 minut</option>
-</select>
-<button id="analyze" onclick="analyze()">🔄 ANALIZ ET</button>
-</div>
+<section class="card">
+ <h2>📊 Söwda jübütini saýla</h2>
+ <label>Walýuta / Kripto</label>
+ <select id="pair">
+  <option value="BTCUSDT">BTC / USDT</option>
+  <option value="ETHUSDT">ETH / USDT</option>
+  <option value="BNBUSDT">BNB / USDT</option>
+  <option value="SOLUSDT">SOL / USDT</option>
+  <option value="XRPUSDT">XRP / USDT</option>
+  <option value="DOGEUSDT">DOGE / USDT</option>
+  <option value="ADAUSDT">ADA / USDT</option>
+ </select>
 
-<div class="card">
-<h3>⚡ RADAR SIGNAL</h3>
-<div id="signal" class="signal wait">GARAŞ</div>
-<p id="description" class="info">Maglumatlara garaşylýar...</p>
-<div class="stats">
-<div class="stat">RSI<strong id="rsi">--</strong></div>
-<div class="stat">MACD<strong id="macd">--</strong></div>
-<div class="stat">Bollinger<strong id="bb">--</strong></div>
-<div class="stat">Görkezijiler<strong id="confidence">--</strong></div>
-</div>
-</div>
+ <label>⏱ Wagt</label>
+ <select id="interval">
+  <option value="1m">M1 - 1 minut</option>
+  <option value="5m">M5 - 5 minut</option>
+  <option value="15m">M15 - 15 minut</option>
+  <option value="1h">H1 - 1 sagat</option>
+  <option value="4h">H4 - 4 sagat</option>
+ </select>
 
-<div class="card">
-<h3>📈 Bazar grafigi</h3>
-<canvas id="chart"></canvas>
-<p class="small" id="price">Bahasy: --</p>
-<p class="small" id="updated">Täzelenmedi</p>
-</div>
+ <button id="analyze" onclick="analyze()">🔄 ANALIZ ET</button>
+ <div id="message" class="status">Analiz üçin taýýar. Düwmä bas.</div>
+</section>
 
-<div class="card">
-<h3>📋 Analiz netijesi</h3>
-<p class="info" id="details">Analiz etmek üçin düwmä bas.</p>
-</div>
+<section class="card">
+ <h2>⚡ RADAR SIGNAL</h2>
+ <div class="result" id="signal">GARAŞ</div>
+ <div class="status" id="description">
+  Bazar maglumatlaryna garaşylýar.
+ </div>
+ <div class="grid">
+  <div class="stat">
+   <small>RSI</small>
+   <div id="rsi">--</div>
+  </div>
+  <div class="stat">
+   <small>MACD</small>
+   <div id="macd">--</div>
+  </div>
+  <div class="stat">
+   <small>Bollinger</small>
+   <div id="boll">--</div>
+  </div>
+  <div class="stat">
+   <small>Görkezijiler</small>
+   <div id="strength">--</div>
+  </div>
+ </div>
+</section>
 
-<div class="card">
-<h3>⚠️ Duýduryş</h3>
-<p class="info">
-Bu programma tehniki analiz berýär. Signallar girdejini kepillendirmeýär.
-Ilki DEMO hasabynda synag ediň. Hakyky söwda kararyny diňe şu signala görä kabul etmäň.
-</p>
-</div>
+<section class="card">
+ <h2>📈 Bazar grafigi</h2>
+ <div class="chart">
+  <canvas id="chart"></canvas>
+ </div>
+ <div class="status" id="price">Bahasy: --</div>
+ <div class="status" id="updated">Täzelenme: --</div>
+</section>
 
-<footer>RADAR SIGNAL PRO © 2026</footer>
+<div class="footer">
+ RADAR SIGNAL PRO © 2026<br>
+ Analiz maglumatdyr, girdeji kepilligi däldir.
+</div>
 
 <script>
-const $=id=>document.getElementById(id);
+const $ = id => document.getElementById(id);
+let candles = [];
 
-async function getMarketData(pair,time){
- const hosts=[
-  "https://data-api.binance.vision",
-  "https://api.binance.com"
+async function getMarketData(){
+ const pair = $("pair").value;
+ const interval = $("interval").value;
+
+ const urls = [
+  `https://api.binance.com/api/v3/klines?symbol=${pair}&interval=${interval}&limit=100`,
+  `https://data-api.binance.vision/api/v3/klines?symbol=${pair}&interval=${interval}&limit=100`
  ];
+
  let lastError;
- for(const host of hosts){
+
+ for(const url of urls){
   try{
-   const url=host+"/api/v3/klines?symbol="+pair+
-    "&interval="+time+"&limit=100";
-   const controller=new AbortController();
-   const timer=setTimeout(()=>controller.abort(),10000);
-   try{
-    const response=await fetch(url,{signal:controller.signal});
-    if(!response.ok)throw Error("HTTP "+response.status);
-    const data=await response.json();
-    if(!Array.isArray(data)||data.length<35)
-      throw Error("Maglumat ýeterlik däl");
-    return data;
-   }finally{clearTimeout(timer)}
+   const response = await fetch(url);
+   if(!response.ok) throw new Error("API error: "+response.status);
+   const data = await response.json();
+   if(!Array.isArray(data) || data.length < 30)
+    throw new Error("Maglumat ýeterlik däl");
+   return data.map(c=>({
+    time:c[0],
+    open:+c[1],
+    high:+c[2],
+    low:+c[3],
+    close:+c[4],
+    volume:+c[5]
+   }));
   }catch(e){lastError=e}
  }
- throw lastError||Error("Maglumat alyp bolmady");
+ throw lastError || new Error("Maglumat alyp bolmady");
 }
 
-function ema(data,period){
- const k=2/(period+1);
- let result=data[0];
- for(let i=1;i<data.length;i++)
-  result=data[i]*k+result*(1-k);
+function ema(values,period){
+ let result=[];
+ let multiplier=2/(period+1);
+ let current=values[0];
+ result.push(current);
+ for(let i=1;i<values.length;i++){
+  current=(values[i]-current)*multiplier+current;
+  result.push(current);
+ }
  return result;
 }
 
-function calculateRSI(data){
+function calculateRSI(values,period=14){
  let gains=0,losses=0;
- for(let i=data.length-14;i<data.length;i++){
-  const change=data[i]-data[i-1];
-  if(change>0)gains+=change;
-  else losses-=change;
+ for(let i=values.length-period;i<values.length;i++){
+  const diff=values[i]-values[i-1];
+  if(diff>0)gains+=diff;
+  else losses-=diff;
  }
- const avgG=gains/14,avgL=losses/14;
- if(avgL===0)return 100;
- return 100-(100/(1+avgG/avgL));
+ let avgGain=gains/period;
+ let avgLoss=losses/period;
+ if(avgLoss===0)return 100;
+ return 100-(100/(1+avgGain/avgLoss));
 }
 
-function drawChart(data){
+function drawChart(){
  const canvas=$("chart");
- const ratio=window.devicePixelRatio||1;
- const width=canvas.clientWidth;
- const height=210;
- canvas.width=width*ratio;
- canvas.height=height*ratio;
+ const rect=canvas.getBoundingClientRect();
+ const dpr=window.devicePixelRatio||1;
+ canvas.width=rect.width*dpr;
+ canvas.height=220*dpr;
  const ctx=canvas.getContext("2d");
- ctx.scale(ratio,ratio);
- const min=Math.min(...data);
- const max=Math.max(...data);
+ ctx.scale(dpr,dpr);
+
+ const closes=candles.map(c=>c.close);
+ const min=Math.min(...closes);
+ const max=Math.max(...closes);
  const range=max-min||1;
- ctx.strokeStyle="#21d879";
- ctx.lineWidth=2;
+ const w=rect.width,h=220;
+ const pad=12;
+
+ ctx.strokeStyle="#293d5b";
+ ctx.lineWidth=1;
+ for(let i=1;i<4;i++){
+  ctx.beginPath();
+  ctx.moveTo(0,h*i/4);
+  ctx.lineTo(w,h*i/4);
+  ctx.stroke();
+ }
+
  ctx.beginPath();
- data.forEach((v,i)=>{
-  const x=i/(data.length-1)*width;
-  const y=height-((v-min)/range)*(height*.85)-height*.07;
+ closes.forEach((v,i)=>{
+  const x=pad+i*(w-2*pad)/(closes.length-1);
+  const y=h-pad-(v-min)/range*(h-2*pad);
   if(i===0)ctx.moveTo(x,y);
   else ctx.lineTo(x,y);
  });
+ ctx.strokeStyle="#28df8b";
+ ctx.lineWidth=2.5;
  ctx.stroke();
+
+ const last=closes[closes.length-1];
+ ctx.fillStyle="#ffc34d";
+ ctx.font="12px Arial";
+ ctx.fillText(last.toFixed(2),w-75,18);
+}
+
+function calculateSignal(){
+ const closes=candles.map(c=>c.close);
+ const last=closes[closes.length-1];
+ const rsi=calculateRSI(closes);
+ const fast=ema(closes,12);
+ const slow=ema(closes,26);
+ const macd=fast.map((v,i)=>v-slow[i]);
+ const signalLine=ema(macd,9);
+ const currentMacd=macd.at(-1);
+ const currentSignal=signalLine.at(-1);
+
+ const recent=closes.slice(-20);
+ const mean=recent.reduce((a,b)=>a+b,0)/20;
+ const variance=recent.reduce((a,b)=>a+(b-mean)**2,0)/20;
+ const deviation=Math.sqrt(variance);
+ const upper=mean+2*deviation;
+ const lower=mean-2*deviation;
+
+ let score=0;
+ let reasons=[];
+
+ if(rsi<30){score++;reasons.push("RSI pes");}
+ else if(rsi>70){score--;reasons.push("RSI ýokary");}
+
+ if(currentMacd>currentSignal){
+  score++;reasons.push("MACD ýokary ugurda");
+ }else{
+  score--;reasons.push("MACD aşak ugurda");
+ }
+
+ if(last>mean){
+  score++;reasons.push("Baha orta çyzykdan ýokarda");
+ }else{
+  score--;reasons.push("Baha orta çyzykdan aşakda");
+ }
+
+ if(last<lower){
+  score++;reasons.push("Baha Bollinger aşaky çäginde");
+ }else if(last>upper){
+  score--;reasons.push("Baha Bollinger ýokarky çäginde");
+ }
+
+ let name="GARAŞ",color="yellow";
+ if(score>=2){name="🟢 AL";color="green";}
+ else if(score<=-2){name="🔴 SAT";color="red";}
+
+ $("signal").textContent=name;
+ $("signal").className="result "+color;
+ $("description").textContent=reasons.join(" • ");
+
+ $("rsi").textContent=rsi.toFixed(2);
+ $("macd").textContent=currentMacd.toFixed(6);
+ $("boll").textContent=
+  last>upper?"Ýokary":
+  last<lower?"Aşak":"Kadaly";
+ $("strength").textContent=Math.abs(score)+"/4";
+
+ $("price").textContent="Bahasy: "+last.toFixed(4)+" USDT";
+ $("updated").textContent="Täzelenme: "+new Date().toLocaleTimeString();
 }
 
 async function analyze(){
- const button=$("analyze");
- const signal=$("signal");
- button.disabled=true;
- button.textContent="Maglumat alynýar...";
- signal.textContent="ÝÜKLENÝÄR";
- signal.className="signal wait";
- $("description").textContent="Bazaryň maglumatlaryna garaşyň...";
+ const btn=$("analyze");
+ btn.disabled=true;
+ $("message").textContent="⏳ Bazar maglumatlary alynýar...";
+ $("signal").textContent="...";
+ $("signal").className="result yellow";
 
  try{
-  const pair=$("pair").value;
-  const time=$("time").value;
-  const candles=await getMarketData(pair,time);
-
-  // Diňe ýapylan şemleri ulanýarys
-  const closed=candles.slice(0,-1);
-  const prices=closed.map(x=>Number(x[4]));
-  const current=prices[prices.length-1];
-
-  const r=calculateRSI(prices);
-  const fast=ema(prices.slice(-40),12);
-  const slow=ema(prices.slice(-40),26);
-  const macd=fast-slow;
-
-  const recent=prices.slice(-20);
-  const avg=recent.reduce((a,b)=>a+b,0)/20;
-  const variance=recent.reduce((a,b)=>a+(b-avg)**2,0)/20;
-  const deviation=Math.sqrt(variance);
-  const upper=avg+2*deviation;
-  const lower=avg-2*deviation;
-
-  let buy=0,sell=0;
-  if(r<35)buy++;
-  if(r>65)sell++;
-  if(macd>0)buy++;
-  if(macd<0)sell++;
-  if(current>avg)buy++;
-  if(current<avg)sell++;
-  if(current<lower)buy++;
-  if(current>upper)sell++;
-
-  let result="WAIT";
-  let reason="Görkezijiler biri-birine doly gabat gelenok.";
-
-  if(buy>=3&&buy>sell){
-   result="AL";
-   reason="Tehniki görkezijileriň köpüsi ýokarlanma tarapyny görkezýär.";
-  }else if(sell>=3&&sell>buy){
-   result="SAT";
-   reason="Tehniki görkezijileriň köpüsi peselme tarapyny görkezýär.";
-  }
-
-  const confidence=Math.round(Math.max(buy,sell)/4*100);
-
-  signal.textContent=result==="AL"?"🟢 AL":
-   result==="SAT"?"🔴 SAT":"🟡 GARAŞ";
-  signal.className="signal "+
-   (result==="AL"?"buy":result==="SAT"?"sell":"wait");
-
-  $("description").textContent=reason;
-  $("rsi").textContent=r.toFixed(2);
-  $("macd").textContent=macd.toFixed(6);
-  $("bb").textContent=current>upper?"Ýokary":
-   current<lower?"Pes":"Kadaly";
-  $("confidence").textContent=confidence+"%";
-  $("price").textContent="Bahasy: "+current+" USDT";
-  $("updated").textContent="Täzelenen wagty: "+
-   new Date().toLocaleTimeString();
-
-  $("details").textContent=
-   "Jübüt: "+pair+" | Wagt: "+time+
-   " | AL: "+buy+"/4 | SAT: "+sell+"/4"+
-   " | RSI: "+r.toFixed(2);
-
-  drawChart(prices);
-
- }catch(e){
-  signal.textContent="ÝALŇYŞ";
-  signal.className="signal wait";
+  candles=await getMarketData();
+  calculateSignal();
+  drawChart();
+  $("message").textContent="✅ Analiz üstünlikli tamamlandy.";
+ }catch(error){
+  $("signal").textContent="ÝALŇYŞ";
+  $("signal").className="result red";
   $("description").textContent=
-   "Maglumat alyp bolmady: "+e.message+
-   ". Interneti barlaň ýa-da biraz soň gaýtadan synanyşyň.";
+   "Maglumat alyp bolmady: "+error.message+
+   ". Interneti ýa-da API elýeterliligini barlaň.";
+  $("message").textContent="Maglumat birikmesi şowsuz.";
  }finally{
-  button.disabled=false;
-  button.textContent="🔄 TÄZEDEN ANALIZ ET";
+  btn.disabled=false;
  }
 }
+
+$("pair").addEventListener("change",analyze);
+$("interval").addEventListener("change",analyze);
 
 analyze();
 </script>
