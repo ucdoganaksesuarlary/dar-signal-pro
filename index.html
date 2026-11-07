@@ -15,10 +15,9 @@ h1 span{color:#ffc44d}
 .card{background:#192a40;border-radius:18px;padding:18px;margin:14px 0}
 h2{font-size:19px;margin:2px 0 15px}
 label{display:block;color:#b5c3d5;margin:13px 0 7px}
-input,select{width:100%;padding:13px;border:0;border-radius:10px;background:#293c59;color:white;font-size:16px}
+select{width:100%;padding:13px;border:0;border-radius:10px;background:#293c59;color:white;font-size:16px}
 button{border:0;border-radius:11px;padding:14px;background:#18bf72;color:white;font-size:16px;font-weight:bold;width:100%;margin-top:12px}
-.secondary{background:#31516f}
-.result{text-align:center;padding:22px 8px;border-radius:14px;background:#293c59;font-size:32px;font-weight:bold;color:#ffc34d}
+.result{text-align:center;padding:22px 8px;border-radius:14px;background:#293c59;font-size:30px;font-weight:bold;color:#ffc34d}
 .green{color:#27e78b}
 .red{color:#ff6262}
 .yellow{color:#ffc34d}
@@ -26,7 +25,7 @@ button{border:0;border-radius:11px;padding:14px;background:#18bf72;color:white;f
 .grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px}
 .stat{background:#293c59;border-radius:12px;padding:13px;min-height:75px}
 .stat small{color:#b5c3d5}
-.stat strong{display:block;font-size:19px;margin-top:9px}
+.stat strong{display:block;font-size:18px;margin-top:9px;overflow-wrap:anywhere}
 .note{font-size:12px;color:#9fb0c5;line-height:1.5}
 footer{text-align:center;color:#8191a6;font-size:12px;padding:18px}
 </style>
@@ -35,239 +34,192 @@ footer{text-align:center;color:#8191a6;font-size:12px;padding:18px}
 
 <header>
 <h1>⚡ RADAR <span>SIGNAL PRO</span></h1>
-<div class="sub">FOREX • Hakyky baha • Tehniki analiz</div>
+<div class="sub">FOREX • API açarsyz synag</div>
 </header>
 
 <section class="card">
 <h2>📊 Forex jübütini saýla</h2>
 <label>Jübüt</label>
 <select id="pair">
-<option>EUR/USD</option>
-<option>GBP/USD</option>
-<option>USD/JPY</option>
-<option>USD/CHF</option>
-<option>AUD/USD</option>
-<option>USD/CAD</option>
-<option>NZD/USD</option>
-<option>EUR/GBP</option>
-<option>EUR/JPY</option>
-<option>GBP/JPY</option>
-<option>AUD/JPY</option>
-<option>EUR/CHF</option>
-<option>EUR/AUD</option>
-<option>EUR/CAD</option>
-<option>GBP/CHF</option>
-<option>GBP/CAD</option>
-<option>GBP/AUD</option>
-<option>AUD/CAD</option>
-<option>AUD/CHF</option>
-<option>CAD/JPY</option>
-<option>CHF/JPY</option>
-<option>NZD/JPY</option>
-<option>NZD/CAD</option>
-<option>NZD/CHF</option>
-<option>EUR/NZD</option>
-<option>GBP/NZD</option>
-<option>AUD/NZD</option>
-<option>CAD/CHF</option>
-<option>USD/TRY</option>
-<option>USD/CNH</option>
+<option value="EURUSD">EUR/USD</option>
+<option value="GBPUSD">GBP/USD</option>
+<option value="USDJPY">USD/JPY</option>
+<option value="USDCHF">USD/CHF</option>
+<option value="AUDUSD">AUD/USD</option>
+<option value="USDCAD">USD/CAD</option>
+<option value="NZDUSD">NZD/USD</option>
+<option value="EURGBP">EUR/GBP</option>
+<option value="EURJPY">EUR/JPY</option>
+<option value="GBPJPY">GBP/JPY</option>
+<option value="AUDJPY">AUD/JPY</option>
+<option value="EURCHF">EUR/CHF</option>
+<option value="EURAUD">EUR/AUD</option>
+<option value="EURCAD">EUR/CAD</option>
+<option value="GBPCHF">GBP/CHF</option>
+<option value="GBPCAD">GBP/CAD</option>
+<option value="GBPAUD">GBP/AUD</option>
+<option value="AUDCAD">AUD/CAD</option>
+<option value="AUDCHF">AUD/CHF</option>
+<option value="CADJPY">CAD/JPY</option>
+<option value="CHFJPY">CHF/JPY</option>
+<option value="NZDJPY">NZD/JPY</option>
+<option value="NZDCAD">NZD/CAD</option>
+<option value="NZDCHF">NZD/CHF</option>
+<option value="EURNZD">EUR/NZD</option>
+<option value="GBPNZD">GBP/NZD</option>
+<option value="AUDNZD">AUD/NZD</option>
+<option value="CADCHF">CAD/CHF</option>
 </select>
 
-<label>⏱ Signal möhleti</label>
-<select id="expiry">
-<option value="5">5 sekunt</option>
-<option value="15">15 sekunt</option>
-<option value="30">30 sekunt</option>
-<option value="60" selected>1 minut</option>
-<option value="120">2 minut</option>
-<option value="300">5 minut</option>
+<label>Analiz grafiginiň wagty</label>
+<select id="tf">
+<option value="1m">1 minut</option>
+<option value="5m" selected>5 minut</option>
+<option value="15m">15 minut</option>
+<option value="30m">30 minut</option>
+<option value="1h">1 sagat</option>
+<option value="4h">4 sagat</option>
 </select>
 
-<label>Twelve Data API açary</label>
-<input id="apiKey" type="password" placeholder="API açaryňy giriz">
-
-<button onclick="analyze()">⚡ HÄZIR ANALIZ ET</button>
-<button class="secondary" onclick="clearKey()">Açary arassala</button>
-
+<button id="go" onclick="analyze()">⚡ HÄZIR ANALIZ ET</button>
 <div class="note">
-API açaryňy hiç kime iberme. Köpçülige açyk GitHub kodunda saklama.
+API açary talap edilmeýär. Maglumat çeşmesi üçünji tarap API-sidir. Elýeterliligi we Pocket Option bahalary bilen deňligi kepillendirilmeýär.
 </div>
 </section>
 
 <section class="card">
 <h2>⚡ RADAR SIGNAL</h2>
 <div class="result yellow" id="signal">🟡 GARAŞ</div>
-<div class="status" id="desc">API açaryny girizip, ANALIZ ET düwmesine bas.</div>
+<div class="status" id="desc">Analiz üçin düwmä bas.</div>
 
 <div class="grid">
 <div class="stat"><small>RSI (14)</small><strong id="rsi">--</strong></div>
 <div class="stat"><small>MACD</small><strong id="macd">--</strong></div>
 <div class="stat"><small>Bollinger %B</small><strong id="bb">--</strong></div>
 <div class="stat"><small>Soňky baha</small><strong id="price">--</strong></div>
-<div class="stat"><small>Analiz netijesi</small><strong id="state">Garaşylýar</strong></div>
-<div class="stat"><small>Maglumat</small><strong id="fresh">Ýok</strong></div>
+<div class="stat"><small>Trend ball</small><strong id="score">--</strong></div>
+<div class="stat"><small>Maglumat ýagdaýy</small><strong id="fresh">Garaşylýar</strong></div>
 </div>
-
-<div class="status" id="market">
-OTC aýryldy. Diňe adaty Forex jübütleri görkezilýär.
-</div>
+<div class="status" id="source">Häzirki wagtda maglumat alynmady.</div>
 </section>
 
 <footer>
 RADAR SIGNAL PRO © 2026<br>
-Tehniki görkezijiler geljegi kepillendirmeýär.
+Signal girdejini kepillendirmeýär. Ilki demo hasapda synag et.
 </footer>
 
 <script>
 const $=id=>document.getElementById(id);
 
-function ema(values,period){
- const k=2/(period+1);
- let out=[];
- let prev=values.slice(0,period).reduce((a,b)=>a+b,0)/period;
-
- for(let i=0;i<values.length;i++){
-  if(i<period-1){out.push(null);continue}
-  if(i===period-1){out.push(prev);continue}
-  prev=values[i]*k+prev*(1-k);
-  out.push(prev);
- }
- return out;
+function ema(a,n){
+let k=2/(n+1),out=[],v=a[0];
+out.push(v);
+for(let i=1;i<a.length;i++){
+v=a[i]*k+v*(1-k);
+out.push(v);
+}
+return out;
 }
 
-function rsi(values,n=14){
- let gains=0,losses=0;
- for(let i=values.length-n;i<values.length;i++){
-  let d=values[i]-values[i-1];
-  if(d>0)gains+=d;
-  else losses-=d;
- }
- if(losses===0)return 100;
- let rs=(gains/n)/(losses/n);
- return 100-100/(1+rs);
+function calc(c){
+let n=c.length,g=0,l=0;
+for(let i=n-14;i<n;i++){
+let d=c[i]-c[i-1];
+if(d>0)g+=d;
+else l-=d;
 }
+let rsi=l===0?100:100-100/(1+(g/14)/(l/14));
+let e12=ema(c,12),e26=ema(c,26);
+let m=e12.map((v,i)=>v-e26[i]);
+let sig=ema(m,9);
+let macd=m[n-1]-sig[n-1];
+let last=c[n-1],s=c.slice(-20);
+let mean=s.reduce((x,y)=>x+y,0)/20;
+let sd=Math.sqrt(s.reduce((x,y)=>x+(y-mean)**2,0)/20);
+let up=mean+2*sd,lo=mean-2*sd;
+let bp=up===lo?0.5:(last-lo)/(up-lo);
+let score=0;
 
-function calculate(c){
- const r=rsi(c);
- const e12=ema(c,12);
- const e26=ema(c,26);
- const macd=e12[e12.length-1]-e26[e26.length-1];
+if(rsi<35)score++;
+else if(rsi>65)score--;
+if(macd>0)score++;
+else if(macd<0)score--;
+if(last>mean)score++;
+else if(last<mean)score--;
+if(bp<0.15)score++;
+else if(bp>0.85)score--;
 
- const last=c[c.length-1];
- const slice=c.slice(-20);
- const mean=slice.reduce((a,b)=>a+b,0)/slice.length;
- const sd=Math.sqrt(slice.reduce((a,b)=>a+(b-mean)**2,0)/slice.length);
- const upper=mean+2*sd;
- const lower=mean-2*sd;
- const bp=upper===lower?0.5:(last-lower)/(upper-lower);
+let signal="🟡 GARAŞ",cls="yellow";
+let why="Görkezijiler bir ugra gabat gelmedi.";
 
- const fastUp=last>mean&&macd>0;
- const fastDown=last<mean&&macd<0;
-
- let score=0;
- if(r<35)score+=1;
- if(r>65)score-=1;
- if(macd>0)score+=1;
- if(macd<0)score-=1;
- if(last>mean)score+=1;
- if(last<mean)score-=1;
- if(bp<0.15)score+=1;
- if(bp>0.85)score-=1;
-
- let signal="GARAŞ";
- let cls="yellow";
- let why="Görkezijiler birmeňzeş ugur görkezmeýär.";
-
- if(score>=3&&fastUp){
-  signal="AL / BUY";
-  cls="green";
-  why="Birnäçe görkeziji ýokary hereketi goldaýar.";
- }else if(score<=-3&&fastDown){
-  signal="SAT / SELL";
-  cls="red";
-  why="Birnäçe görkeziji aşak hereketi goldaýar.";
- }
-
- return {r,macd,bp,last,signal,cls,why,score};
+if(score>=3){
+signal="🟢 AL / BUY";
+cls="green";
+why="Birnäçe görkeziji ýokary hereketi goldaýar.";
+}
+if(score<=-3){
+signal="🔴 SAT / SELL";
+cls="red";
+why="Birnäçe görkeziji aşak hereketi goldaýar.";
+}
+return {rsi,macd,bp,last,score,signal,cls,why};
 }
 
 async function analyze(){
- const key=$("apiKey").value.trim();
- const pair=$("pair").value;
- const expiry=$("expiry").value;
+let pair=$("pair").value;
+let tf=$("tf").value;
+let btn=$("go");
 
- if(!key){
-  $("desc").textContent="Ilki Twelve Data API açaryny giriz.";
-  return;
- }
+btn.disabled=true;
+$("signal").textContent="⏳ MAGLUMAT ALYNÝAR";
+$("signal").className="result yellow";
+$("fresh").textContent="Ýüklenýär";
 
- $("signal").textContent="⏳ MAGLUMAT ALYNÝAR";
- $("signal").className="result yellow";
- $("state").textContent="Ýüklenýär";
- $("fresh").textContent="Garaşylýar";
- $("desc").textContent=pair+" üçin 1 minutlyk Forex bahalary soralýar...";
+try{
+let url=`https://biquote.io/api/${pair}/ohlc?interval=${encodeURIComponent(tf)}&limit=120`;
+let res=await fetch(url);
 
- try{
-  const url="https://api.twelvedata.com/time_series?symbol="+
-  encodeURIComponent(pair)+
-  "&interval=1min&outputsize=100&apikey="+
-  encodeURIComponent(key);
+if(!res.ok)throw new Error("HTTP "+res.status);
 
-  const response=await fetch(url);
-  if(!response.ok)throw new Error("HTTP "+response.status);
-
-  const data=await response.json();
-
-  if(data.status==="error"||!data.values){
-   throw new Error(data.message||"API maglumat bermedi");
-  }
-
-  const candles=data.values.slice().reverse();
-  const closes=candles.map(x=>Number(x.close)).filter(Number.isFinite);
-
-  if(closes.length<35){
-   throw new Error("Analiz üçin ýeterlik baha maglumatlary ýok.");
-  }
-
-  const a=calculate(closes);
-
-  $("signal").textContent=a.signal;
-  $("signal").className="result "+a.cls;
-  $("rsi").textContent=a.r.toFixed(2);
-  $("macd").textContent=a.macd.toFixed(6);
-  $("bb").textContent=(a.bp*100).toFixed(1)+"%";
-  $("price").textContent=a.last;
-  $("state").textContent=a.score+" / 4";
-  $("fresh").textContent="Gelýär";
-
-  $("desc").textContent=
-  pair+" • Möhlet: "+expiry+" sekunt. "+a.why+
-  " Bu diňe 1 minutlyk şemlerden hasaplanan tehniki baha; "+
-  "saýlanan möhletde girdejini kepillendirmeýär.";
-
-  $("market").textContent=
-  "Soňky şem: "+candles[candles.length-1].datetime+
-  " • Maglumat çeşmesi: Twelve Data. Signal diňe maglumat gelen ýagdaýynda hasaplandy.";
-
- }catch(e){
-  $("signal").textContent="🟡 GARAŞ";
-  $("signal").className="result yellow";
-  $("state").textContent="Ýalňyşlyk";
-  $("fresh").textContent="Ýok";
-
-  $("desc").textContent=
-  "Maglumat alynmady: "+e.message+
-  ". API açaryny, interneti we API meýilnamasynyň Forex/1min goldawyny barla.";
-
-  $("market").textContent=
-  "Hakyky baha ýok wagty AL/SAT görkezilmeýär.";
- }
+let data=await res.json();
+if(!Array.isArray(data.bars)){
+throw new Error(data.message||"Şem maglumatlary tapylmady");
 }
 
-function clearKey(){
- $("apiKey").value="";
- $("desc").textContent="API açary arassalandy.";
+let bars=data.bars.filter(b=>!b.isOpen&&Number.isFinite(Number(b.close)));
+
+if(bars.length<35){
+throw new Error("Analiz üçin ýeterlik ýapylan şem ýok.");
+}
+
+let a=calc(bars.map(b=>Number(b.close)));
+
+$("signal").textContent=a.signal;
+$("signal").className="result "+a.cls;
+$("rsi").textContent=a.rsi.toFixed(2);
+$("macd").textContent=a.macd.toFixed(6);
+$("bb").textContent=(a.bp*100).toFixed(1)+"%";
+$("price").textContent=a.last;
+$("score").textContent=a.score+"/4";
+$("fresh").textContent="Alnan";
+
+$("desc").textContent=
+`${pair.slice(0,3)}/${pair.slice(3)} • ${tf} • ${a.why} Tehniki signal girdejini kepillendirmeýär.`;
+
+$("source").textContent=
+"Maglumat çeşmesi: Biquote üçünji tarap API-si. Soňky şem: "+
+(bars[bars.length-1].openTime||"wagt görkezilmedi")+".";
+
+}catch(e){
+$("signal").textContent="🟡 GARAŞ";
+$("signal").className="result yellow";
+$("fresh").textContent="Maglumat ýok";
+$("desc").textContent="Analiz edilmedi: "+e.message;
+$("source").textContent=
+"Maglumat çeşmesi elýeterli däl ýa-da brauzer rugsat bermedi. Hakyky maglumat ýok wagty AL/SAT görkezilmeýär.";
+}finally{
+btn.disabled=false;
+}
 }
 </script>
 </body>
