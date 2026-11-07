@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="tk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RADAR SIGNAL PRO</title>
+<style>
+*{box-sizing:border-box}
+body{
+ margin:0;background:#0b1220;color:white;
+ font-family:Arial,sans-serif;padding:20px
+}
+header{text-align:center;padding:20px}
+h1{color:#22c55e;font-size:28px}
+.card{
+ background:#172338;border-radius:18px;
+ padding:20px;margin:18px 0
+}
+select,button{
+ width:100%;padding:15px;border-radius:10px;
+ border:0;font-size:17px;margin-top:12px
+}
+select{background:#26364e;color:white}
+button{background:#16a34a;color:white;font-weight:bold}
+.signal{text-align:center;font-size:32px;font-weight:bold;padding:20px}
+.muted{color:#9ca3af}
+</style>
+</head>
+<body>
+
+<header>
+<h1>⚡ RADAR SIGNAL PRO</h1>
+<p class="muted">Akylly bazar seljermesi</p>
+</header>
+
+<div class="card">
+<h3>📊 Söwda jübütini saýla</h3>
+<select id="pair">
+<option>EUR/USD</option>
+<option>GBP/USD</option>
+<option>AUD/CHF</option>
+<option>USD/JPY</option>
+</select>
+
+<h3>⏱️ Wagt</h3>
+<select id="time">
+<option>M1</option>
+<option>M5</option>
+<option>M15</option>
+</select>
+</div>
+
+<div class="card">
+<h3>RADAR SIGNAL</h3>
+<div class="signal" id="signal">WAIT</div>
+<p class="muted" id="info">
+Häzirki wagtda hakyky maglumat birikdirilmedi.
+</p>
+<button onclick="alert('Häzir maglumat çeşmesi birikdirilmedi. Bu DEMO ekranydyr.')">
+🔔 SIGNAL BARLA
+</button>
+</div>
+
+<div class="card">
+<h3>📈 Seljeriş</h3>
+<p>RSI: —</p>
+<p>MACD: —</p>
+<p>Bollinger Bands: —</p>
+<p class="muted">Maglumat çeşmesine garaşylýar.</p>
+</div>
+
+<div class="card">
+<h3>📋 Signal taryhy</h3>
+<p class="muted">Entäk signal ýok.</p>
+</div>
+
+<footer class="muted" style="text-align:center">
+RADAR SIGNAL PRO © 2026
+<br>Diňe synag üçin. Girdeji kepillendirilmeýär.
+</footer>
+
+</body>
+</html>
