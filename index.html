@@ -7,78 +7,35 @@
 <title>RADAR SIGNAL PRO</title>
 <style>
 *{box-sizing:border-box}
-body{
- margin:0;padding:16px;
- background:#081225;color:#fff;
- font-family:Arial,sans-serif
-}
+body{margin:0;padding:16px;background:#081225;color:#fff;font-family:Arial,sans-serif}
 header{text-align:center;padding:26px 0}
 h1{font-size:27px;color:#22d47c;margin:0}
 h1 span{color:#ffc44d}
 .sub{color:#a6b5c9;margin-top:12px}
-.card{
- background:#192a40;border-radius:22px;
- padding:20px;margin:16px 0
-}
+.card{background:#192a40;border-radius:22px;padding:20px;margin:16px 0}
 h2{font-size:21px;margin:4px 0 20px}
 label{display:block;color:#b5c3d5;margin:15px 0 9px}
-input,select{
- width:100%;padding:15px;border:0;
- border-radius:12px;background:#293c59;
- color:white;font-size:16px
-}
+input,select{width:100%;padding:15px;border:0;border-radius:12px;background:#293c59;color:white;font-size:16px}
 .tabs{display:flex;gap:8px;margin:15px 0}
-.tabs button{
- flex:1;padding:12px 5px;border:0;
- border-radius:12px;background:#293c59;
- color:white;font-size:14px
-}
+.tabs button{flex:1;padding:12px 5px;border:0;border-radius:12px;background:#293c59;color:white;font-size:14px}
 .tabs button.active{background:#127eae}
-.pairbox{
- max-height:245px;overflow-y:auto;
- border-radius:12px;background:#233650;
- margin-top:10px
-}
-.pair{
- display:flex;align-items:center;
- padding:13px 10px;gap:8px;
- border-bottom:1px solid #394c64;
- cursor:pointer;font-size:14px
-}
+.pairbox{max-height:245px;overflow-y:auto;border-radius:12px;background:#233650;margin-top:10px}
+.pair{display:flex;align-items:center;padding:13px 10px;gap:8px;border-bottom:1px solid #394c64;cursor:pointer;font-size:14px}
 .pair.selected{background:#315a78}
 .pair .name{flex:1}
 .star{color:#ffbf43;font-size:21px}
 .small{font-size:12px;color:#aab9cc}
-.mainbtn{
- width:100%;padding:17px;border:0;
- border-radius:13px;background:#18bf72;
- color:white;font-size:19px;
- font-weight:bold;margin-top:18px
-}
-.result{
- padding:25px 8px;text-align:center;
- background:#293c59;border-radius:16px;
- font-size:37px;font-weight:bold;
- color:#ffbd45
-}
+.mainbtn{width:100%;padding:17px;border:0;border-radius:13px;background:#18bf72;color:white;font-size:19px;font-weight:bold;margin-top:18px}
+.result{padding:25px 8px;text-align:center;background:#293c59;border-radius:16px;font-size:37px;font-weight:bold;color:#ffbd45}
 .green{color:#27e78b}
 .red{color:#ff6262}
 .yellow{color:#ffc34d}
 .status{color:#afbed1;line-height:1.6;margin-top:16px}
-.grid{
- display:grid;grid-template-columns:1fr 1fr;
- gap:12px;margin-top:18px
-}
-.stat{
- background:#293c59;border-radius:14px;
- padding:16px;min-height:92px
-}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:18px}
+.stat{background:#293c59;border-radius:14px;padding:16px;min-height:92px}
 .stat small{color:#b5c3d5}
 .stat strong{display:block;font-size:20px;margin-top:12px}
-.selectedbar{
- color:#25e58b;font-weight:bold;
- margin-top:15px;font-size:17px
-}
+.selectedbar{color:#25e58b;font-weight:bold;margin-top:15px;font-size:17px}
 footer{text-align:center;color:#8191a6;font-size:12px;padding:20px}
 </style>
 </head>
@@ -91,7 +48,6 @@ footer{text-align:center;color:#8191a6;font-size:12px;padding:20px}
 
 <section class="card">
 <h2>📊 Söwda jübütini saýla</h2>
-
 <div class="tabs">
 <button class="active" onclick="tab('all',this)">Ählisi</button>
 <button onclick="tab('forex',this)">Forex</button>
@@ -99,11 +55,8 @@ footer{text-align:center;color:#8191a6;font-size:12px;padding:20px}
 <button onclick="tab('fav',this)">⭐</button>
 </div>
 
-<input id="search" placeholder="🔍 Jübüt gözle..."
- oninput="renderPairs()">
-
+<input id="search" placeholder="🔍 Jübüt gözle..." oninput="renderPairs()">
 <div class="pairbox" id="pairs"></div>
-
 <div class="selectedbar" id="chosen">Saýlanan: EUR/USD</div>
 
 <label>⏱ Söwda wagty</label>
@@ -122,35 +75,19 @@ footer{text-align:center;color:#8191a6;font-size:12px;padding:20px}
 <section class="card">
 <h2>⚡ RADAR SIGNAL</h2>
 <div class="result yellow" id="signal">🟡 GARAŞ</div>
-<div class="status" id="description">
-Jübüt saýlap analiz düwmesine bas.
-</div>
+<div class="status" id="description">Jübüt saýlap analiz düwmesine bas.</div>
 
 <div class="grid">
-<div class="stat">
-<small>RSI</small>
-<strong id="rsi">--</strong>
-</div>
-<div class="stat">
-<small>MACD</small>
-<strong id="macd">--</strong>
-</div>
-<div class="stat">
-<small>Bollinger</small>
-<strong id="boll">--</strong>
-</div>
-<div class="stat">
-<small>Maglumat ýagdaýy</small>
-<strong id="state">Garaşylýar</strong>
-</div>
+<div class="stat"><small>RSI</small><strong id="rsi">--</strong></div>
+<div class="stat"><small>MACD</small><strong id="macd">--</strong></div>
+<div class="stat"><small>Bollinger</small><strong id="boll">--</strong></div>
+<div class="stat"><small>Maglumat ýagdaýy</small><strong id="state">Garaşylýar</strong></div>
 </div>
 </section>
 
 <section class="card">
 <h2>📈 Bazar maglumatlary</h2>
-<div class="status" id="market">
-Hakyky baha çeşmesi birikdirilmedik.
-</div>
+<div class="status" id="market">Hakyky baha çeşmesi birikdirilmedik. Häzir diňe jübüt saýlap bolýar; hakyky AL/SAT signaly ýok.</div>
 <div class="status" id="time"></div>
 </section>
 
@@ -207,93 +144,94 @@ let selected="EUR/USD";
 let favorites=new Set();
 
 function tab(type,button){
- currentTab=type;
- document.querySelectorAll(".tabs button")
- .forEach(b=>b.classList.remove("active"));
- button.classList.add("active");
- renderPairs();
+currentTab=type;
+document.querySelectorAll(".tabs button").forEach(b=>b.classList.remove("active"));
+button.classList.add("active");
+renderPairs();
 }
 
 function renderPairs(){
- const query=document.getElementById("search")
- .value.toUpperCase().trim();
- const box=document.getElementById("pairs");
- box.innerHTML="";
+const query=document.getElementById("search").value.toUpperCase().trim();
+const box=document.getElementById("pairs");
+box.innerHTML="";
 
- const filtered=all.filter(p=>{
-  if(currentTab==="forex"&&p.type!=="forex")return false;
-  if(currentTab==="otc"&&p.type!=="otc")return false;
-  if(currentTab==="fav"&&!favorites.has(p.name))return false;
-  return p.name.includes(query);
- });
+const filtered=all.filter(p=>{
+if(currentTab==="forex"&&p.type!=="forex")return false;
+if(currentTab==="otc"&&p.type!=="otc")return false;
+if(currentTab==="fav"&&!favorites.has(p.name))return false;
+return p.name.includes(query);
+});
 
- if(!filtered.length){
-  box.textContent="Jübüt tapylmady";
-  return;
- }
+if(!filtered.length){
+box.textContent="Jübüt tapylmady";
+return;
+}
 
- filtered.forEach(p=>{
-  const row=document.createElement("div");
-  row.className="pair"+(p.name===selected?" selected":"");
+filtered.forEach(p=>{
+const row=document.createElement("div");
+row.className="pair"+(p.name===selected?" selected":"");
 
-  const star=document.createElement("span");
-  star.className="star";
-  star.textContent=favorites.has(p.name)?"★":"☆";
-  star.onclick=e=>{
-   e.stopPropagation();
-   if(favorites.has(p.name))favorites.delete(p.name);
-   else favorites.add(p.name);
-   renderPairs();
-  };
+const star=document.createElement("span");
+star.className="star";
+star.textContent=favorites.has(p.name)?"★":"☆";
+star.onclick=e=>{
+e.stopPropagation();
+if(favorites.has(p.name))favorites.delete(p.name);
+else favorites.add(p.name);
+renderPairs();
+};
 
-  const name=document.createElement("span");
-  name.className="name";
-  name.textContent=p.name;
+const name=document.createElement("span");
+name.className="name";
+name.textContent=p.name;
 
-  const kind=document.createElement("span");
-  kind.className="small";
-  kind.textContent=p.type.toUpperCase();
+const kind=document.createElement("span");
+kind.className="small";
+kind.textContent=p.type.toUpperCase();
 
-  row.append(star,name,kind);
-  row.onclick=()=>{
-   selected=p.name;
-   document.getElementById("chosen").textContent=
-    "Saýlanan: "+selected;
-   document.getElementById("search").value="";
-   document.getElementById("signal").textContent="🟡 GARAŞ";
-   document.getElementById("signal").className="result yellow";
-   document.getElementById("description").textContent=
-    "Täze jübüt saýlandy. Analiz üçin bas.";
-   renderPairs();
-  };
-  box.appendChild(row);
- });
+row.append(star,name,kind);
+row.onclick=()=>{
+selected=p.name;
+document.getElementById("chosen").textContent="Saýlanan: "+selected;
+document.getElementById("search").value="";
+document.getElementById("signal").textContent="🟡 GARAŞ";
+document.getElementById("signal").className="result yellow";
+document.getElementById("description").textContent="Täze jübüt saýlandy. Analiz üçin bas.";
+renderPairs();
+};
+box.appendChild(row);
+});
 }
 
 function analyze(){
- const duration=document.getElementById("duration").value;
- const isOTC=selected.endsWith("OTC");
+const duration=document.getElementById("duration").value;
+const isOTC=selected.endsWith("OTC");
 
- document.getElementById("signal").textContent="🟡 GARAŞ";
- document.getElementById("signal").className="result yellow";
- document.getElementById("rsi").textContent="--";
- document.getElementById("macd").textContent="--";
- document.getElementById("boll").textContent="--";
- document.getElementById("state").textContent="Birikmedik";
+document.getElementById("signal").textContent="🟡 GARAŞ";
+document.getElementById("signal").className="result yellow";
+document.getElementById("rsi").textContent="--";
+document.getElementById("macd").textContent="--";
+document.getElementById("boll").textContent="--";
+document.getElementById("state").textContent="Birikmedik";
 
- document.getElementById("description").textContent=
-  selected+" üçin "+duration+
-  " sekuntlyk söwda saýlandy. Hakyky baha maglumatlary ýok. "+
-  "AL/SAT signalyny ygtybarly hasaplamak mümkin däl.";
+const durationLabels={
+"5":"5 sekunt","15":"15 sekunt","30":"30 sekunt",
+"60":"1 minut","120":"2 minut","300":"5 minut"
+};
+const durationLabel=durationLabels[duration]||duration+" sekunt";
 
- document.getElementById("market").textContent=isOTC?
-  "OTC bahalary Pocket Option çeşmesinden alynmaly. "+
-  "Häzir OTC maglumat birikmesi ýok.":
-  "Forex baha çeşmesi entek birikdirilmedi. "+
-  "Hakyky maglumat gelýänçä signal berilmeýär.";
+document.getElementById("description").textContent=
+selected+" üçin "+durationLabel+
+" saýlandy. Hakyky baha maglumatlary birikdirilmedi. "+
+"Şonuň üçin AL/SAT signaly döredilmeýär; maglumat gelýänçä GARAŞ.";
 
- document.getElementById("time").textContent=
-  "Barlanan wagt: "+new Date().toLocaleTimeString();
+document.getElementById("market").textContent=isOTC?
+"OTC bahalary Pocket Option çeşmesinden alynmaly. Häzir OTC maglumat birikmesi ýok.":
+"Forex baha çeşmesi entek birikdirilmedi. Hakyky maglumat gelýänçä signal berilmeýär.";
+
+document.getElementById("time").textContent=
+"Barlanan wagt: "+new Date().toLocaleTimeString()+
+" • Wagt enjamyň ýerli wagty boýunça görkezilýär.";
 }
 
 renderPairs();
