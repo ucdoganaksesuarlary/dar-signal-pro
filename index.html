@@ -1,83 +1,274 @@
+
 <!DOCTYPE html>
 <html lang="tk">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>RADAR SIGNAL PRO</title>
 <style>
 *{box-sizing:border-box}
 body{
- margin:0;background:#0b1220;color:white;
- font-family:Arial,sans-serif;padding:20px
+ margin:0;background:#081225;color:white;
+ font-family:Arial,sans-serif;padding:18px;
 }
-header{text-align:center;padding:20px}
-h1{color:#22c55e;font-size:28px}
+header{text-align:center;padding:22px 0}
+h1{color:#22d36e;font-size:29px}
+.sub{color:#9ba9c1}
 .card{
- background:#172338;border-radius:18px;
- padding:20px;margin:18px 0
+ background:#18263d;padding:20px;
+ border-radius:18px;margin:18px 0;
 }
+label{display:block;margin:15px 0 8px;color:#bdc8d9}
 select,button{
- width:100%;padding:15px;border-radius:10px;
- border:0;font-size:17px;margin-top:12px
+ width:100%;padding:15px;border-radius:11px;
+ border:0;font-size:17px;
 }
-select{background:#26364e;color:white}
-button{background:#16a34a;color:white;font-weight:bold}
-.signal{text-align:center;font-size:32px;font-weight:bold;padding:20px}
-.muted{color:#9ca3af}
+select{background:#293b56;color:white}
+button{
+ background:#1dbb65;color:white;
+ font-weight:bold;margin-top:15px;
+}
+button:active{opacity:.7}
+.signal{
+ text-align:center;font-size:35px;
+ font-weight:bold;padding:25px;
+ border-radius:14px;background:#26354d;
+}
+.buy{color:#21df79}
+.sell{color:#ff5151}
+.wait{color:#ffc34d}
+.info{color:#9eabc0;line-height:1.7}
+.stats{
+ display:grid;grid-template-columns:1fr 1fr;
+ gap:12px;
+}
+.stat{
+ background:#263750;padding:15px;border-radius:12px;
+}
+.stat strong{display:block;font-size:22px;margin-top:7px}
+canvas{
+ width:100%;height:210px;
+ background:#101c30;border-radius:12px;
+}
+.small{font-size:12px;color:#8999b1}
+footer{text-align:center;color:#8190a8;padding:20px}
 </style>
 </head>
 <body>
 
 <header>
 <h1>⚡ RADAR SIGNAL PRO</h1>
-<p class="muted">Akylly bazar seljermesi</p>
+<div class="sub">Akylly bazar seljermesi</div>
 </header>
 
 <div class="card">
 <h3>📊 Söwda jübütini saýla</h3>
 <select id="pair">
-<option>EUR/USD</option>
-<option>GBP/USD</option>
-<option>AUD/CHF</option>
-<option>USD/JPY</option>
+<option value="BTCUSDT">BTC / USDT</option>
+<option value="ETHUSDT">ETH / USDT</option>
+<option value="BNBUSDT">BNB / USDT</option>
+<option value="SOLUSDT">SOL / USDT</option>
+<option value="XRPUSDT">XRP / USDT</option>
 </select>
 
-<h3>⏱️ Wagt</h3>
+<label>⏱ Wagt</label>
 <select id="time">
-<option>M1</option>
-<option>M5</option>
-<option>M15</option>
+<option value="1m">M1 - 1 minut</option>
+<option value="5m">M5 - 5 minut</option>
+<option value="15m">M15 - 15 minut</option>
 </select>
+
+<button onclick="analyze()">🔄 ANALIZ ET</button>
 </div>
 
 <div class="card">
-<h3>RADAR SIGNAL</h3>
-<div class="signal" id="signal">WAIT</div>
-<p class="muted" id="info">
-Häzirki wagtda hakyky maglumat birikdirilmedi.
+<h3>⚡ RADAR SIGNAL</h3>
+<div id="signal" class="signal wait">GARAŞ</div>
+<p id="description" class="info">
+Bazaryň maglumatlaryna garaşylýar...
 </p>
-<button onclick="alert('Häzir maglumat çeşmesi birikdirilmedi. Bu DEMO ekranydyr.')">
-🔔 SIGNAL BARLA
-</button>
+<div class="stats">
+<div class="stat">
+RSI
+<strong id="rsi">--</strong>
+</div>
+<div class="stat">
+MACD
+<strong id="macd">--</strong>
+</div>
+<div class="stat">
+Bollinger
+<strong id="bb">--</strong>
+</div>
+<div class="stat">
+Gabат gelşi
+<strong id="confidence">--</strong>
+</div>
+</div>
 </div>
 
 <div class="card">
-<h3>📈 Seljeriş</h3>
-<p>RSI: —</p>
-<p>MACD: —</p>
-<p>Bollinger Bands: —</p>
-<p class="muted">Maglumat çeşmesine garaşylýar.</p>
+<h3>📈 Bazar grafigi</h3>
+<canvas id="chart"></canvas>
+<p class="small" id="price">Bahasy: --</p>
+<p class="small" id="updated">Täzelenmedi</p>
 </div>
 
 <div class="card">
-<h3>📋 Signal taryhy</h3>
-<p class="muted">Entäk signal ýok.</p>
+<h3>📋 Analiz netijesi</h3>
+<p class="info" id="details">
+Analiz başlamak üçin düwmä bas.
+</p>
 </div>
 
-<footer class="muted" style="text-align:center">
+<div class="card">
+<h3>⚠️ Möhüm duýduryş</h3>
+<p class="info">
+Bu programma tehniki görkezijiler esasynda analiz edýär.
+AL we SAT signallary 100% dogry däldir.
+Hakyky pul bilen söwda etmezden öň DEMO hasabynda synag ediň.
+</p>
+</div>
+
+<footer>
 RADAR SIGNAL PRO © 2026
-<br>Diňe synag üçin. Girdeji kepillendirilmeýär.
 </footer>
 
+<script>
+const $ = id => document.getElementById(id);
+
+function ema(data, period){
+ let k=2/(period+1);
+ let result=data[0];
+ for(let i=1;i<data.length;i++){
+ result=data[i]*k+result*(1-k);
+ }
+ return result;
+}
+
+function rsi(data){
+ let gains=0,losses=0;
+ for(let i=data.length-14;i<data.length;i++){
+ let d=data[i]-data[i-1];
+ if(d>0)gains+=d;
+ else losses-=d;
+ }
+ let avgG=gains/14;
+ let avgL=losses/14;
+ if(avgL===0)return 100;
+ return 100-(100/(1+avgG/avgL));
+}
+
+function drawChart(data){
+ const c=$("chart");
+ const ctx=c.getContext("2d");
+ const w=c.width=c.clientWidth*devicePixelRatio;
+ const h=c.height=210*devicePixelRatio;
+ ctx.clearRect(0,0,w,h);
+ const min=Math.min(...data);
+ const max=Math.max(...data);
+ const range=max-min||1;
+ ctx.strokeStyle="#21c978";
+ ctx.lineWidth=2*devicePixelRatio;
+ ctx.beginPath();
+ data.forEach((v,i)=>{
+ let x=i/(data.length-1)*w;
+ let y=h-((v-min)/range)*(h*.85)-h*.07;
+ if(i===0)ctx.moveTo(x,y);
+ else ctx.lineTo(x,y);
+ });
+ ctx.stroke();
+}
+
+async function analyze(){
+ const signal=$("signal");
+ signal.className="signal wait";
+ signal.textContent="ÝÜKLENÝÄR...";
+ $("description").textContent="Bazar maglumatlary alynýar...";
+ $("details").textContent="Garaşyň...";
+
+ try{
+ const pair=$("pair").value;
+ const time=$("time").value;
+ const url="https://api.binance.com/api/v3/klines?symbol="+pair+"&interval="+time+"&limit=100";
+ const response=await fetch(url);
+ if(!response.ok)throw Error("Maglumat elýeterli däl");
+ const candles=await response.json();
+
+ if(!Array.isArray(candles)||candles.length<35)
+ throw Error("Maglumat ýeterlik däl");
+
+ const prices=candles.map(x=>Number(x[4]));
+ const current=prices[prices.length-1];
+ const previous=prices[prices.length-2];
+
+ const r=rsi(prices);
+ const fast=ema(prices.slice(-26),12);
+ const slow=ema(prices.slice(-26),26);
+ const macd=fast-slow;
+
+ const recent=prices.slice(-20);
+ const avg=recent.reduce((a,b)=>a+b,0)/20;
+ const variance=recent.reduce((a,b)=>a+(b-avg)**2,0)/20;
+ const deviation=Math.sqrt(variance);
+ const upper=avg+2*deviation;
+ const lower=avg-2*deviation;
+
+ let buy=0,sell=0;
+ if(r<35)buy++;
+ if(r>65)sell++;
+ if(macd>0)buy++;
+ if(macd<0)sell++;
+ if(current>avg)buy++;
+ if(current<avg)sell++;
+ if(current<lower)buy++;
+ if(current>upper)sell++;
+
+ let result="WAIT";
+ let reason="Häzir anyk ugur ýok. Garaşyň.";
+ let confidence=Math.round(Math.max(buy,sell)/4*100);
+
+ if(buy>=3&&buy>sell){
+ result="AL";
+ reason="Birnäçe tehniki görkeziji ýokarlanmany görkezýär.";
+ }
+ else if(sell>=3&&sell>buy){
+ result="SAT";
+ reason="Birnäçe tehniki görkeziji peselmäni görkezýär.";
+ }
+
+ signal.textContent=result;
+ signal.className="signal "+(result==="AL"?"buy":result==="SAT"?"sell":"wait");
+
+ $("description").textContent=reason;
+ $("rsi").textContent=r.toFixed(2);
+ $("macd").textContent=macd.toFixed(6);
+ $("bb").textContent=current>upper?"Ýokary":current<lower?"Pes":"Kadaly";
+ $("confidence").textContent=confidence+"%";
+ $("price").textContent="Bahasy: "+current;
+ $("updated").textContent="Soňky täzelenme: "+new Date().toLocaleTimeString();
+
+ $("details").textContent=
+ "Jübüt: "+pair+
+ " | Wagt: "+time+
+ " | AL ballary: "+buy+
+ " | SAT ballary: "+sell+
+ " | RSI: "+r.toFixed(2)+
+ " | MACD: "+macd.toFixed(6)+
+ " | Bollinger ortaça: "+avg.toFixed(6);
+
+ drawChart(prices);
+
+ }catch(e){
+ signal.textContent="ÝALŇYŞ";
+ signal.className="signal wait";
+ $("description").textContent=
+ "Maglumat alyp bolmady: "+e.message+
+ ". Interneti ýa-da Binance API elýeterliligini barlaň.";
+ }
+}
+
+analyze();
+</script>
 </body>
 </html>
